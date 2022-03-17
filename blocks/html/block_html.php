@@ -48,40 +48,22 @@ class block_html extends block_base {
         return true;
     }
 
+    /**
+     * @throws moodle_exception
+     * @throws coding_exception
+     */
     function get_content() {
-        global $CFG;
-
-        require_once($CFG->libdir . '/filelib.php');
-
-        if ($this->content !== NULL) {
+        if ($this->content !== null) {
             return $this->content;
         }
 
-        $filteropt = new stdClass;
-        $filteropt->overflowdiv = true;
-        if ($this->content_is_trusted()) {
-            // fancy html allowed only on course, category and system blocks.
-            $filteropt->noclean = true;
-        }
+        $this->content         =  new stdClass;
+        $this->content->text   = 'The content of our SimpleHTML block!';
 
-        $this->content = new stdClass;
-        $this->content->footer = '';
-        if (isset($this->config->text)) {
-            // rewrite url
-            $this->config->text = file_rewrite_pluginfile_urls($this->config->text, 'pluginfile.php', $this->context->id, 'block_html', 'content', NULL);
-            // Default to FORMAT_HTML which is what will have been used before the
-            // editor was properly implemented for the block.
-            $format = FORMAT_HTML;
-            // Check to see if the format has been properly set on the config
-            if (isset($this->config->format)) {
-                $format = $this->config->format;
-            }
-            $this->content->text = format_text($this->config->text, $format, $filteropt);
-        } else {
-            $this->content->text = '';
-        }
+        global $COURSE;
 
-        unset($filteropt); // memory footprint
+        $url = new moodle_url('/blocks/html/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id));
+        $this->content->footer = html_writer::link($url, get_string('addpage', 'block_html'));
 
         return $this->content;
     }
