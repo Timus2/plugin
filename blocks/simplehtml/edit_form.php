@@ -16,6 +16,5 @@ class block_simplehtml_edit_form extends block_edit_form {
         $mform->setDefault('config_title', 'default value');
         $mform->setType('config_title', PARAM_TEXT);
 
-
     }
 }
