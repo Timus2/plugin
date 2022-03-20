@@ -11,57 +11,69 @@ class block_simplehtml extends block_base
 
     public function get_content()
     {
+        require_once('simplehtml_form.php');
+        global $DB, $OUTPUT;
+
         if ($this->content !== null) {
             return $this->content;
         }
 
-        $this->content = new stdClass;
-        $this->content->text = '
-        <form method="post">
-        <p>
-            <label for="let1">A</label>
-            <input type="number" id="let1" name="let1" placeholder="введите значение..." required>
-        </p>
-        <p>
-            <label for="let2">B</label>
-            <input type="number" id="let2" itemtype="number" name="let2" placeholder="введите значение..." required>
-        </p>
-        <p>
-            <label for="let3">C</label>
-            <input type="number" id="let3" itemtype="number" name="let3" placeholder="введите значение..." required>
-        </p>
-        <button type="submit">Найти значение</button>
-        </form>
-        ';
+        $this->content = new stdClass();
+        $this->content->text = '';
+        $mform = new simplehtml_form();
+
+        if ($fromform = $mform->get_data()) {
+            $arr = array();
+            foreach ($fromform as $item) {
+                $arr[] = $item;
+            }
+            $a = $arr[0];
+            $b = $arr[1];
+            $c = $arr[2];
+            $resultEquation = $this->equation($a, $b, $c);
+
+            $this->content->text .= "<h3> $a * x<sup>2</sup> $b  * x + $c  = 0</h3> ";
+            $this->content->text .= '<p>Корни уравнения :</p>';
+            $this->content->text .= "x1 = $resultEquation[0], x2 = $resultEquation[1] <br>";
+
+        } else {
+            $this->content->text = $mform->render();
+        }
+
+        $url = new moodle_url('http://moodle/my/' );
+        $this->content->footer .= html_writer::link($url, 'Назад <br>');
+
+        $url = new moodle_url('/blocks/simplehtml/history.php');
+        $this->content->footer .= html_writer::link($url, 'История');
 
 
-        $a = (int)$_POST['let1'];
-        $b = (int)$_POST['let2'];
-        $c = (int)$_POST['let3'];
-
-        $result = $this->equation($a, $b, $c);
-        $this->content->items = array($result[0],$result[1]);
-
-
-
-        $url = new moodle_url('/blocks/simplehtml/view.php');
-        $this->content->footer = html_writer::link($url, 'История');
 
         return $this->content;
+
+
+//        require_once 'HTML/QuickForm.php';
+//        $form = new HTML_QuickForm('firstForm');
+//        $form->addElement('header', null, 'Решение');
+//        $form->addElement('text', 'nameA', 'A');
+//        $form->addElement('text', 'nameB', 'B');
+//        $form->addElement('text', 'nameC', 'C');
+//        $form->addElement('submit', null, 'Send');
+
+//
+//        $result = $this->equation($a, $b, $c);
+
+//        $this->content = new stdClass;
+//
+//
+
+//        return $this->content;
     }
 
     function equation($a, $b, $c): array
     {
 
-        function headerAlert()
-        {
-            ?>
-            <script>alert('Коэффициент при первом слагаемом уравнения не может быть равным нулю измените его и попробуйте снова.')</script>
-            <?php
-        }
-
         if ($a == 0) {
-            headerAlert();
+            header('Location: /');
             die;
         }
         if ($b == 0) {
@@ -89,4 +101,5 @@ class block_simplehtml extends block_base
         echo $x1, $x2;
         return array($x1, $x2);
     }
+
 }
