@@ -2,13 +2,10 @@
 
 class block_simplehtml extends block_base
 {
-
     public function init()
     {
         $this->title = get_string('simplehtml', 'block_simplehtml');
     }
-
-
     /**
      * @throws moodle_exception
      * @throws dml_exception
@@ -16,7 +13,7 @@ class block_simplehtml extends block_base
     public function get_content()
     {
         require_once('simplehtml_form.php');
-        global $DB, $OUTPUT;
+        global $DB, $PAGE;
 
         if ($this->content !== null) {
             return $this->content;
@@ -49,6 +46,12 @@ class block_simplehtml extends block_base
             $this->content->text = $mform->render();
         }
 
+
+
+        $url = new moodle_url('http://moodle/my/');
+        $this->content->footer .= html_writer::link($url, 'Назад <br>');
+
+        $this->content->text .= html_writer::start_tag('details');
         if ($simplehtmlpages = $DB->get_records('simplehtml')) {
             $this->content->text .= html_writer::start_tag('ol');
             foreach ($simplehtmlpages as $page) {
@@ -58,12 +61,7 @@ class block_simplehtml extends block_base
             }
         }
         $this->content->text .= html_writer::end_tag('ol');
-        $url = new moodle_url('http://moodle/my/');
-        $this->content->footer .= html_writer::link($url, 'Назад <br>');
-
-        $url = new moodle_url('/blocks/simplehtml/history.php');
-        $this->content->footer .= html_writer::link($url, 'История');
-
+        $this->content->text .= html_writer::end_tag('details');
         return $this->content;
     }
 
