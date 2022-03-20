@@ -46,35 +46,29 @@ class block_simplehtml extends block_base
         $url = new moodle_url('/blocks/simplehtml/history.php');
         $this->content->footer .= html_writer::link($url, 'История');
 
-
-
         return $this->content;
-
-
-//        require_once 'HTML/QuickForm.php';
-//        $form = new HTML_QuickForm('firstForm');
-//        $form->addElement('header', null, 'Решение');
-//        $form->addElement('text', 'nameA', 'A');
-//        $form->addElement('text', 'nameB', 'B');
-//        $form->addElement('text', 'nameC', 'C');
-//        $form->addElement('submit', null, 'Send');
-
-//
-//        $result = $this->equation($a, $b, $c);
-
-//        $this->content = new stdClass;
-//
-//
-
-//        return $this->content;
     }
 
     function equation($a, $b, $c): array
     {
-
+        $d = ($b * $b) - 4 * $a * $c;
+        if ($d < 0){
+            echo '
+            <script>
+                alert("Дискриминант меньше нуля, решений нет..");
+                let url = "http://moodle/my/";
+                window.location.replace(url);
+            </script>';
+            die();
+        }
         if ($a == 0) {
-            header('Location: /');
-            die;
+            echo '
+            <script>
+                alert("Первый коэффициент а не должен быть равен нулю...");
+                let url = "http://moodle/my/";
+                window.location.replace(url);
+            </script>';
+            die();
         }
         if ($b == 0) {
             if ($c < 0) {
@@ -87,7 +81,6 @@ class block_simplehtml extends block_base
                 $x2 = -sqrt($c / $a);
             }
         } else {
-            $d = ($b * $b) - 4 * $a * $c;
             if ($d > 0) {
                 $x1 = (-$b + sqrt($d)) / (2 * $a);
                 $x2 = (-$b - sqrt($d)) / (2 * $a);
