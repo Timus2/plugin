@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/simplehtml/db" VERSION="20220318" COMMENT="XMLDB file for Moodle blocks/simplehtml"
+<XMLDB PATH="blocks/simplehtml/db" VERSION="20220320" COMMENT="XMLDB file for Moodle blocks/simplehtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -12,8 +12,6 @@
         <FIELD NAME="c" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="x1" TYPE="number" LENGTH="20" NOTNULL="false" SEQUENCE="false" DECIMALS="6"/>
         <FIELD NAME="x2" TYPE="number" LENGTH="20" NOTNULL="false" SEQUENCE="false" DECIMALS="6"/>
-        <FIELD NAME="blockid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="coursid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

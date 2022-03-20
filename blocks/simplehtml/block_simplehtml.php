@@ -9,6 +9,10 @@ class block_simplehtml extends block_base
     }
 
 
+    /**
+     * @throws moodle_exception
+     * @throws dml_exception
+     */
     public function get_content()
     {
         require_once('simplehtml_form.php');
@@ -22,25 +26,39 @@ class block_simplehtml extends block_base
         $this->content->text = '';
         $mform = new simplehtml_form();
 
-        if ($fromform = $mform->get_data()) {
-            $arr = array();
-            foreach ($fromform as $item) {
-                $arr[] = $item;
-            }
-            $a = $arr[0];
-            $b = $arr[1];
-            $c = $arr[2];
-            $resultEquation = $this->equation($a, $b, $c);
+        if ($getForm = $mform->get_data()) {
+            $resultEquation = $this->equation($getForm->nameA, $getForm->nameB, $getForm->nameC);
 
-            $this->content->text .= "<h3> $a * x<sup>2</sup> $b  * x + $c  = 0</h3> ";
+            $this->content->text .= "<h3> $getForm->nameA * x<sup>2</sup> $getForm->nameB  * x + $getForm->nameC  = 0</h3> ";
             $this->content->text .= '<p>Корни уравнения :</p>';
             $this->content->text .= "x1 = $resultEquation[0], x2 = $resultEquation[1] <br>";
 
+            $result = new stdClass();
+            $result->a = $getForm->nameA;
+            $result->b = $getForm->nameB;
+            $result->c = $getForm->nameC;
+            $result->x1 = $resultEquation[0];
+            $result->x2 = $resultEquation[1];
+            $result->blockid = '1';
+            $result->coursid = '1';
+
+            if (!$DB->insert_record('simplehtml', $result)) {
+                print_error('inserterror', 'simplehtml');
+            };
         } else {
             $this->content->text = $mform->render();
         }
 
-        $url = new moodle_url('http://moodle/my/' );
+        if ($simplehtmlpages = $DB->get_records('simplehtml')) {
+            $this->content->text .= html_writer::start_tag('ol');
+            foreach ($simplehtmlpages as $page) {
+                $this->content->text .= html_writer::start_tag('li');
+                $this->content->text .= "a = $page->a, b = $page->b, c = $page->c <br> <b>x1 = $page->x1, x2 = $page->x2</b> <br><br>";
+                $this->content->text .= html_writer::end_tag('li');
+            }
+        }
+        $this->content->text .= html_writer::end_tag('ol');
+        $url = new moodle_url('http://moodle/my/');
         $this->content->footer .= html_writer::link($url, 'Назад <br>');
 
         $url = new moodle_url('/blocks/simplehtml/history.php');
@@ -52,7 +70,7 @@ class block_simplehtml extends block_base
     function equation($a, $b, $c): array
     {
         $d = ($b * $b) - 4 * $a * $c;
-        if ($d < 0){
+        if ($d < 0) {
             echo '
             <script>
                 alert("Дискриминант меньше нуля, решений нет..");
