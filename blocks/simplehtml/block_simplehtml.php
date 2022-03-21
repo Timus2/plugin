@@ -20,7 +20,6 @@ class block_simplehtml extends block_base
         }
 
         $this->content = new stdClass();
-        $this->content->text = '';
         $mform = new simplehtml_form();
 
         if ($getForm = $mform->get_data()) {
@@ -46,11 +45,6 @@ class block_simplehtml extends block_base
             $this->content->text = $mform->render();
         }
 
-
-
-        $url = new moodle_url('http://moodle/my/');
-        $this->content->footer .= html_writer::link($url, 'Назад <br>');
-
         $this->content->text .= html_writer::start_tag('details');
         if ($simplehtmlpages = $DB->get_records('simplehtml')) {
             $this->content->text .= html_writer::start_tag('ol');
@@ -62,6 +56,11 @@ class block_simplehtml extends block_base
         }
         $this->content->text .= html_writer::end_tag('ol');
         $this->content->text .= html_writer::end_tag('details');
+
+        $url = new moodle_url('http://moodle/my/');
+        $this->content->footer .= html_writer::link($url, 'Назад <br>');
+
+
         return $this->content;
     }
 
