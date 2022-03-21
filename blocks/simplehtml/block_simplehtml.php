@@ -30,6 +30,9 @@ class block_simplehtml extends block_base
             $this->content->text .= '<p>Корни уравнения :</p>';
             $this->content->text .= "x1 = $resultEquation[0], x2 = $resultEquation[1] <br>";
 
+            $url = new moodle_url('http://moodle/my/');
+            $this->content->footer .= html_writer::link($url, 'Назад <br>');
+
             $result = new stdClass();
             $result->a = $getForm->nameA;
             $result->b = $getForm->nameB;
@@ -58,8 +61,7 @@ class block_simplehtml extends block_base
         $this->content->text .= html_writer::end_tag('ol');
         $this->content->text .= html_writer::end_tag('details');
 
-        $url = new moodle_url('http://moodle/my/');
-        $this->content->footer .= html_writer::link($url, 'Назад <br>');
+
 
 
         return $this->content;
