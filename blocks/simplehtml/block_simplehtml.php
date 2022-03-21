@@ -6,7 +6,6 @@ class block_simplehtml extends block_base
     {
         $this->title = get_string('simplehtml', 'block_simplehtml');
     }
-
     /**
      * @throws moodle_exception
      * @throws dml_exception
@@ -14,12 +13,11 @@ class block_simplehtml extends block_base
     public function get_content()
     {
         require_once('simplehtml_form.php');
-        global $DB, $PAGE;
+        global $DB;
 
         if ($this->content !== null) {
             return $this->content;
         }
-
         $this->content = new stdClass();
         $mform = new simplehtml_form();
 
@@ -60,10 +58,6 @@ class block_simplehtml extends block_base
         }
         $this->content->text .= html_writer::end_tag('ol');
         $this->content->text .= html_writer::end_tag('details');
-
-
-
-
         return $this->content;
     }
 

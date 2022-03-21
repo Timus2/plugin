@@ -4,7 +4,6 @@ $settings->add(new admin_setting_heading(
     get_string('headerconfig', 'block_simplehtml'),
     get_string('descconfig', 'block_simplehtml')
 ));
-
 $settings->add(new admin_setting_configcheckbox(
     'simplehtml/Allow_HTML',
     get_string('labelallowhtml', 'block_simplehtml'),
