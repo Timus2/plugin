@@ -10,15 +10,16 @@ class simplehtml_form extends moodleform {
 
         $form->addElement('text', 'nameA', 'A');
         $form->setType('nameA', PARAM_INT);
-        $form -> addRule ( 'nameA' ,  'Введите значение А' ,  'required' ,  null ,  'client' );
+        $form -> addRule ( 'nameA' ,  'Введите значение А' ,  'numeric' ,  null ,  'client' );
 
         $form->addElement('text', 'nameB', 'B');
         $form->setType('nameB', PARAM_INT);
-        $form -> addRule ( 'nameB' ,  'Введите значение B' ,  'required' ,  null ,  'client' );
+        $form -> addRule ( 'nameB' ,  'Введите значение B' ,  'numeric' ,  null,  'client' );
 
         $form->addElement('text', 'nameC', 'C');
         $form->setType('nameC', PARAM_INT);
-        $form -> addRule ( 'nameC' ,  'Введите значение C' ,  'required' ,  null ,  'client' );
+        $form -> addRule ( 'nameC' ,  'Введите значение C' ,  'numeric' ,  null,  'client' );
+
         $this -> add_action_buttons ();
     }
     function validation($data, $files) {

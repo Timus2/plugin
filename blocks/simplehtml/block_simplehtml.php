@@ -6,6 +6,7 @@ class block_simplehtml extends block_base
     {
         $this->title = get_string('simplehtml', 'block_simplehtml');
     }
+
     /**
      * @throws moodle_exception
      * @throws dml_exception
@@ -75,8 +76,7 @@ class block_simplehtml extends block_base
                 window.location.replace(url);
             </script>';
             die();
-        }
-        if ($a == 0) {
+        } else if ($a == 0) {
             echo '
             <script>
                 alert("Первый коэффициент а не должен быть равен нулю...");
