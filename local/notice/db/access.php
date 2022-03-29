@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
+
 $capabilities = array(
 
-    'block/plugin_notice:myaddinstance' => array(
+    'local/notice:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
@@ -14,7 +15,7 @@ $capabilities = array(
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
 
-    'block/plugin_notice:addinstance' => array(
+    'local/notice:addinstance' => array(
         'riskbitmask' => RISK_SPAM | RISK_XSS,
 
         'captype' => 'write',
