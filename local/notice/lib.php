@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-function local_notice_render_navbar_output(): string
+function local_notice_render_navbar_output(): form_notice
 {
-    return 'hello';
+    $block = new form_notice();
+    $block->render();
+    return '';
 }

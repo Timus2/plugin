@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class block_simplehtml extends block_base
 {
     public function init()
@@ -10,6 +12,7 @@ class block_simplehtml extends block_base
      * @throws moodle_exception
      * @throws dml_exception
      */
+
     public function get_content()
     {
         require_once('simplehtml_form.php');
