@@ -7,10 +7,20 @@ include __DIR__ . '/../../config.php';
  * @global bootstrap_renderer $OUTPUT
  * @global moodle_page $PAGE
  */
+global $DB, $USER;
+
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/distribution/');
+require_login();
 
 echo $OUTPUT->header();
 $form = new local_distribution\Forms\FormDistribution;
 $form->display();
+
+$result = $form->get_data();
+$result->active_user = $USER->id;
+print_object($result);
+//require_capability();
 echo $OUTPUT->footer();
+
+
