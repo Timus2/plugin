@@ -51,9 +51,4 @@ class FormDistribution extends moodleform
 
         $this->add_action_buttons();
     }
-
-    function validation($data, $files): array
-    {
-        return array();
-    }
 }

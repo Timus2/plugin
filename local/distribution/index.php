@@ -20,7 +20,10 @@ $form->display();
 $result = $form->get_data();
 $result->active_user = $USER->id;
 print_object($result);
-//require_capability();
+
+if (!$DB->insert_record('history_distribution', $result)) {
+    print_error('inserterror', 'history_distribution');
+}
 echo $OUTPUT->footer();
 
 
