@@ -21,4 +21,6 @@ echo $OUTPUT->header();
 $form = new FormDistribution();
 $form->mustache_tabs($OUTPUT, $CFG);
 new FormHistory();
+$result = $DB->get_records('history_distribution');
+print_object($result);
 echo $OUTPUT->footer();

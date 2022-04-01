@@ -18,19 +18,21 @@ $PAGE->set_url('/local/distribution/');
 require_login();
 
 echo $OUTPUT->header();
+
 $form = new FormDistribution();
 $form->mustache_tabs($OUTPUT, $CFG);
 $form->display();
 $result = $form->get_data();
 
-if ($result == null) {
+if ($result != null) {
     $result->active_user = $USER->id;
-    $now = new DateTime("now", core_date::get_server_timezone_object());
-    $result->timecreated = $now;
-    $result->active_link = '1';
+    $now = new DateTime('now');
+    $result->active_link = '{link}';
+    $result->total_user = 1;
+    $result->timecreated = $now->getTimestamp();
     if (!$DB->insert_record('history_distribution', $result)) {
         print_error('inserterror', 'history_distribution');
     }
 }
-print_object($now);
+print_object($result);
 echo $OUTPUT->footer();

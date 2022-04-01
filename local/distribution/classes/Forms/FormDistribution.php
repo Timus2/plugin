@@ -18,15 +18,15 @@ class FormDistribution extends moodleform
     {
         $mForm = $this->_form;
 
-        $mForm->addElement('header', null, 'Уведомление');
+        $mForm->addElement('header', null, get_string("title", 'local_distribution'));
 
-        $mForm->addElement('text', 'title', 'Тема сообщения', 'maxlength="100" size="25"');
+        $mForm->addElement('text', 'title', get_string("titlemessage"), 'maxlength="100" size="25"');
         $mForm->setType('title', PARAM_TEXT);
         $mForm->addRule('title', '', 'required',);
 
-        $mForm->addElement('textarea', 'textInfo', get_string("introtext", "survey"), 'wrap="virtual" rows="7" cols="50"');
-        $mForm->setType('textInfo', PARAM_TEXT);
-        $mForm->addRule('textInfo', '', 'required');
+        $mForm->addElement('textarea', 'textinfo', get_string("introtext", "survey"), 'wrap="virtual" rows="7" cols="50"');
+        $mForm->setType('textinfo', PARAM_TEXT);
+        $mForm->addRule('textinfo', '', 'required');
 
         // radio role
         $mForm->addElement('header', null, 'Целевая роль');
@@ -44,8 +44,7 @@ class FormDistribution extends moodleform
         $mForm->addGroup($method, null, '', array(''), '2');
 
         $mForm->addElement('header', 'header', 'Файл');
-        $mForm->addElement('filepicker', 'userfile', get_string('file'), null,
-            array('maxbytes' => 150, 'accepted_types' => '*'));
+        $mForm->addElement('filepicker', 'file', get_string('file'), null, array('accepted_types' => '*'));
 
         $this->add_action_buttons();
     }

@@ -17,7 +17,6 @@ class FormHistory extends moodleform
         $table = new table_sql('history_distribution');
         $table->set_sql('*', "{history_distribution}", '1=1');
         $table->define_baseurl("$CFG->wwwroot/history.php");
-        $table->out(40, true);
+        $table->out(50, true);
     }
 }
-
