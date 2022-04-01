@@ -6,8 +6,8 @@ namespace local_distribution\Forms;
 
 use moodleform;
 
-global $CFG;
-require_once("$CFG->libdir/formslib.php");
+/** @global $CFG */
+require_once $CFG->libdir . '/formslib.php';
 
 class FormDistribution extends moodleform
 {
@@ -48,5 +48,14 @@ class FormDistribution extends moodleform
             array('maxbytes' => 150, 'accepted_types' => '*'));
 
         $this->add_action_buttons();
+    }
+
+    function mustache_tabs($OUTPUT, $CFG)
+    {
+        $params = [
+            'url_form' => $CFG->wwwroot . '/local/distribution/index.php',
+            'url_history' => $CFG->wwwroot . '/local/distribution/history.php'
+        ];
+        echo $OUTPUT->render_from_template('local_distribution/tabs_form', $params);
     }
 }
