@@ -46,8 +46,6 @@ class FormDistribution extends moodleform
         $mForm->addElement('header', 'header', 'Файл');
         $mForm->addElement('filepicker', 'userfile', get_string('file'), null,
             array('maxbytes' => 150, 'accepted_types' => '*'));
-//        $mForm->setType('userfile', PARAM_FILE);
-//        $mForm->addRule('userfile', '', 'required');
 
         $this->add_action_buttons();
     }
