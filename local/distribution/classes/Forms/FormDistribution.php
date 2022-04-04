@@ -6,14 +6,12 @@ namespace local_distribution\Forms;
 
 use moodleform;
 
-/** @global $CFG */
+/** @global $CFG
+ */
 require_once $CFG->libdir . '/formslib.php';
 
 class FormDistribution extends moodleform
 {
-    /**
-     * @throws \coding_exception
-     */
     protected function definition()
     {
         $mForm = $this->_form;
@@ -45,8 +43,9 @@ class FormDistribution extends moodleform
         $mForm->addGroup($method, null, '', array(''), '2');
 
         $mForm->addElement('header', 'header', get_string('infoFile', 'local_distribution'));
-        $mForm->addElement('filepicker', 'file', get_string('infoFile', 'local_distribution'), null, array('accepted_types' => '*'));
-
+        $mForm->addElement('filemanager', 'attachments',  get_string('infoFile', 'local_distribution'), null,
+            array('subdirs' => 0, 'maxbytes' => 10485760, 'areamaxbytes' => 10485760, 'maxfiles' => 5,
+                'accepted_types' => array('document'), 'return_types'=> FILE_INTERNAL | FILE_EXTERNAL));
         $this->add_action_buttons();
     }
 
