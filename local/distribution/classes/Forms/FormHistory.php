@@ -13,10 +13,10 @@ class FormHistory extends moodleform
 {
     protected function definition()
     {
-        global $OUTPUT, $CFG;
+        global $CFG;
         $table = new table_sql('history_distribution');
-        $table->set_sql('*', "{history_distribution}", '1=1');
+        $table->set_sql('*', "{history_distribution}", '1');
         $table->define_baseurl("$CFG->wwwroot/history.php");
-        $table->out(50, true);
+        $table->out(70, true);
     }
 }

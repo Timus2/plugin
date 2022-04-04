@@ -15,10 +15,9 @@ include __DIR__ . '/../../config.php';
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/distribution/');
-require_login();
+
 
 echo $OUTPUT->header();
-
 $form = new FormDistribution();
 $form->mustache_tabs($OUTPUT, $CFG);
 $form->display();
@@ -36,3 +35,5 @@ if ($result != null) {
 }
 print_object($result);
 echo $OUTPUT->footer();
+
+

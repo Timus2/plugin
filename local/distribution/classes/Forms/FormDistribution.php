@@ -18,33 +18,34 @@ class FormDistribution extends moodleform
     {
         $mForm = $this->_form;
 
-        $mForm->addElement('header', null, get_string("title", 'local_distribution'));
+        $mForm->addElement('header', null, get_string("titleMessage", 'local_distribution'));
 
-        $mForm->addElement('text', 'title', get_string("titlemessage"), 'maxlength="100" size="25"');
+        $mForm->addElement('text', 'title', get_string("textMessage",'local_distribution'), 'maxlength="100" size="25"');
         $mForm->setType('title', PARAM_TEXT);
         $mForm->addRule('title', '', 'required',);
 
-        $mForm->addElement('textarea', 'textinfo', get_string("introtext", "survey"), 'wrap="virtual" rows="7" cols="50"');
+        $mForm->addElement('textarea', 'textinfo', get_string("textInfo", "local_distribution"), 'wrap="virtual" rows="7" cols="50"');
         $mForm->setType('textinfo', PARAM_TEXT);
         $mForm->addRule('textinfo', '', 'required');
 
         // radio role
-        $mForm->addElement('header', null, 'Целевая роль');
+        $mForm->addElement('header', null, get_string("infoRole", "local_distribution"));
         $role = array();
-        $role[] = $mForm->createElement('radio', 'role', '', 'Преподаватели', 1);
-        $role[] = $mForm->createElement('radio', 'role', '', 'Студенты', 2);
-        $role[] = $mForm->createElement('radio', 'role', '', 'Все пользователи', 3);
+        $role[] = $mForm->createElement('radio', 'role', '', get_string("infoAll", "local_distribution"), 1);
+        $role[] = $mForm->createElement('radio', 'role', '', get_string("infoTeacher", "local_distribution"), 2);
+        $role[] = $mForm->createElement('radio', 'role', '', get_string("infoStudent", "local_distribution"), 3);
         $mForm->addGroup($role, null, '', array(''), '1');
 
+
         // method
-        $mForm->addElement('header', null, 'Метод оповещения');
+        $mForm->addElement('header', null, get_string("infoMethod", "local_distribution"));
         $method = array();
-        $method[] = $mForm->createElement('radio', 'method', '', 'Почта', 1);
-        $method[] = $mForm->createElement('radio', 'method', '', 'Личные сообщения', 2);
+        $method[] = $mForm->createElement('radio', 'method', '', get_string("infoEmail", "local_distribution"), 1);
+        $method[] = $mForm->createElement('radio', 'method', '', get_string("infoChat", "local_distribution"), 2);
         $mForm->addGroup($method, null, '', array(''), '2');
 
-        $mForm->addElement('header', 'header', 'Файл');
-        $mForm->addElement('filepicker', 'file', get_string('file'), null, array('accepted_types' => '*'));
+        $mForm->addElement('header', 'header', get_string('infoFile', 'local_distribution'));
+        $mForm->addElement('filepicker', 'file', get_string('infoFile', 'local_distribution'), null, array('accepted_types' => '*'));
 
         $this->add_action_buttons();
     }
