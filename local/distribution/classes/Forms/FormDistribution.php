@@ -18,7 +18,7 @@ class FormDistribution extends moodleform
 
         $mForm->addElement('header', null, get_string("titleMessage", 'local_distribution'));
 
-        $mForm->addElement('text', 'title', get_string("textMessage",'local_distribution'), 'maxlength="100" size="25"');
+        $mForm->addElement('text', 'title', get_string("textMessage", 'local_distribution'), 'maxlength="100" size="25"');
         $mForm->setType('title', PARAM_TEXT);
         $mForm->addRule('title', '', 'required',);
 
@@ -43,9 +43,11 @@ class FormDistribution extends moodleform
         $mForm->addGroup($method, null, '', array(''), '2');
 
         $mForm->addElement('header', 'header', get_string('infoFile', 'local_distribution'));
-        $mForm->addElement('filemanager', 'attachments',  get_string('infoFile', 'local_distribution'), null,
-            array('subdirs' => 0, 'maxbytes' => 10485760, 'areamaxbytes' => 10485760, 'maxfiles' => 5,
-                'accepted_types' => array('document'), 'return_types'=> FILE_INTERNAL | FILE_EXTERNAL));
+        $mForm->addElement('filemanager', 'file', get_string('infoFile', 'local_distribution'), null,
+            array('subdirs' => 0, 'maxbytes' => 1024, 'areamaxbytes' => 10485760, 'maxfiles' => 50,
+                'accepted_types' => array('document'), 'return_types' => FILE_INTERNAL | FILE_EXTERNAL));
+
+
         $this->add_action_buttons();
     }
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 $string['pluginname'] = 'distribution';
-$string['titleMessage'] = 'Switch';
+$string['titleMessage'] = 'Notification';
 $string['textMessage'] = 'Text message';
 $string['textInfo'] = 'Information text';
 $string['infoRole'] = 'Role';
