@@ -20,20 +20,20 @@ $PAGE->set_url('/local/distribution/');
 echo $OUTPUT->header();
 $form = new FormDistribution();
 $form->mustache_tabs($OUTPUT, $CFG);
-$form->display();
-$result = $form->get_data();
 
+$result = $form->get_data();
 if ($result != null) {
     $result->active_user = $USER->id;
     $now = new DateTime('now');
     $result->active_link = '{link}';
-    $result->total_user = 1;
+    $result->total_user = -1;
     $result->timecreated = $now->getTimestamp();
     if (!$DB->insert_record('history_distribution', $result)) {
         print_error('inserterror', 'history_distribution');
     }
+    $form->save_file('file', 'files/'. $form->get_new_filename('file'), false);
 }
-print_object($result);
+$form->display();
 echo $OUTPUT->footer();
 
 

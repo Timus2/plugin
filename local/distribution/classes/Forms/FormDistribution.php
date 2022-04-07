@@ -6,7 +6,8 @@ namespace local_distribution\Forms;
 
 use moodleform;
 
-/** @global $CFG
+/**
+ * @global $CFG
  */
 require_once $CFG->libdir . '/formslib.php';
 
@@ -26,14 +27,13 @@ class FormDistribution extends moodleform
         $mForm->setType('textinfo', PARAM_TEXT);
         $mForm->addRule('textinfo', '', 'required');
 
-        // radio role
+        // role
         $mForm->addElement('header', null, get_string("infoRole", "local_distribution"));
         $role = array();
         $role[] = $mForm->createElement('radio', 'role', '', get_string("infoAll", "local_distribution"), 1);
         $role[] = $mForm->createElement('radio', 'role', '', get_string("infoTeacher", "local_distribution"), 2);
         $role[] = $mForm->createElement('radio', 'role', '', get_string("infoStudent", "local_distribution"), 3);
         $mForm->addGroup($role, null, '', array(''), '1');
-
 
         // method
         $mForm->addElement('header', null, get_string("infoMethod", "local_distribution"));
@@ -42,12 +42,10 @@ class FormDistribution extends moodleform
         $method[] = $mForm->createElement('radio', 'method', '', get_string("infoChat", "local_distribution"), 2);
         $mForm->addGroup($method, null, '', array(''), '2');
 
+        // file
         $mForm->addElement('header', 'header', get_string('infoFile', 'local_distribution'));
-        $mForm->addElement('filemanager', 'file', get_string('infoFile', 'local_distribution'), null,
-            array('subdirs' => 0, 'maxbytes' => 1024, 'areamaxbytes' => 10485760, 'maxfiles' => 50,
-                'accepted_types' => array('document'), 'return_types' => FILE_INTERNAL | FILE_EXTERNAL));
-
-
+        $mForm->addElement('filepicker', 'file', get_string('infoFile', 'local_distribution'), null,
+            array('maxbytes' => 1024, 'accepted_types' => '*'));
         $this->add_action_buttons();
     }
 
@@ -58,5 +56,10 @@ class FormDistribution extends moodleform
             'url_history' => $CFG->wwwroot . '/local/distribution/history.php'
         ];
         echo $OUTPUT->render_from_template('local_distribution/tabs_form', $params);
+    }
+
+    function managerfile()
+    {
+
     }
 }

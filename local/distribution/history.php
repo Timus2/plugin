@@ -9,17 +9,19 @@ include __DIR__ . '/../../config.php';
 /**
  * @global bootstrap_renderer $OUTPUT
  * @global moodle_page $PAGE
- * @global  $CFG
+ * @global $CFG
  * @global $DB
  */
 
 $PAGE->set_context(context_system::instance());
-$PAGE->set_url('/local/distribution/');
+$PAGE->set_url('/local/distribution');
+
 require_login();
 
 echo $OUTPUT->header();
+
 $form = new FormDistribution();
 $form->mustache_tabs($OUTPUT, $CFG);
-new FormHistory();
-$result = $DB->get_records('history_distribution');
+$sqlTable = new FormHistory();
+
 echo $OUTPUT->footer();

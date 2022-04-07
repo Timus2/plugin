@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 function local_distribution_render_navbar_output()
 {
-    global $OUTPUT, $CFG, $USER;
+    global $OUTPUT, $CFG;
     $params = [
         'url' => $CFG->wwwroot . '/local/distribution',
     ];
